@@ -14,7 +14,7 @@ Este objeto de aprendizagem é destinado a **estudantes de graduação em Ciênc
 
 Os requisitos estão organizados em três dimensões — Conceitos, Habilidades e Disposições — e cobrem do nível **Lembrar** ao nível **Avaliar** da Taxonomia de Bloom Revisada. A definição completa de cada requisito, com critérios de avaliação, está disponível no documento abaixo.
 
-**[Requisitos de Aprendizagem (PDF)](public/binary-tree-study-requisitos.pdf)**
+**[Requisitos de Aprendizagem (PDF)](https://docs.google.com/document/d/1UkFJsJOtB3VgTnSJ0gApmXJ9kPoAxOMGay7oKA7teRU/edit?usp=sharing)**
 
 ### Resumo
 
