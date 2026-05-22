@@ -2,8 +2,6 @@
 
 **Universidade Tecnológica Federal do Paraná — UTFPR Campo Mourão**
 Disciplina: OPT016 | Bacharelado em Ciências da Computação
-Autor: Lucas dos Santos Vaz — RA: 2020955
-
 ---
 
 ## Público-Alvo
