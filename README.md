@@ -41,7 +41,7 @@ Os requisitos estão organizados em três dimensões — Conceitos, Habilidades 
 
 ![Modelo Instrucional](public/mapa_instrucional.png)
 
-Arquivo fonte editável: [Abrir no Excalidraw](https://excalidraw.com/#json=DOsUCO4WP-VTX1g5I4MU1,XkVF4PvQ2pBJ8ejLY2pCog)
+Arquivo fonte editável: [Abrir no Excalidraw](https://excalidraw.com/#json=p0oAGkzMRSp67fe93bXUa,MsMh4r5aLD5sS0n0dmSDNg)
 
 ---
 

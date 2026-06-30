@@ -3,11 +3,11 @@ import { toLayoutTree } from '../utils/bst';
 const NODE_RADIUS = 22;
 
 const COLORS = {
-  default:     { fill: '#1d3557', stroke: '#457b9d', text: '#e6edf3' },
-  highlighted: { fill: '#e94560', stroke: '#ff6b6b', text: '#fff' },
-  visited:     { fill: '#2d6a4f', stroke: '#52b788', text: '#fff' },
-  found:       { fill: '#f4a261', stroke: '#e76f51', text: '#fff' },
-  violation:   { fill: '#6b2737', stroke: '#c1121f', text: '#fff' },
+  default:     { fill: '#FFFFFF', stroke: '#2D60FF', text: '#1A1D29' },
+  highlighted: { fill: '#2D60FF', stroke: '#1D4ED8', text: '#FFFFFF' },
+  visited:     { fill: '#ECFDF5', stroke: '#10B981', text: '#065F46' },
+  found:       { fill: '#FEF3C7', stroke: '#F59E0B', text: '#92400E' },
+  violation:   { fill: '#FEF2F2', stroke: '#EF4444', text: '#991B1B' },
 };
 
 function getNodeColor(value, { highlightedNodes, visitedNodes, foundNode, violatingNodes }) {
@@ -47,7 +47,7 @@ export default function TreeSVG({
 }) {
   if (!root) {
     return (
-      <div style={{ textAlign: 'center', color: '#4a4e69', padding: '32px', border: '2px dashed #4a4e69', borderRadius: '8px' }}>
+      <div style={{ textAlign: 'center', color: '#9CA3AF', padding: '32px', border: '2px dashed #E5E7EB', borderRadius: '8px', background: '#FAFBFC' }}>
         Árvore vazia
       </div>
     );
@@ -66,21 +66,19 @@ export default function TreeSVG({
       style={{ display: 'block', margin: '0 auto', overflow: 'visible' }}
       aria-label="Árvore Binária de Busca"
     >
-      {/* Edges */}
       {edges.map((e, i) => (
         <line
           key={i}
           x1={e.x1} y1={e.y1}
           x2={e.x2} y2={e.y2}
-          stroke="#4a4e69"
+          stroke="#CBD5E1"
           strokeWidth={2}
         />
       ))}
 
-      {/* Nodes */}
       {nodes.map((node) => {
-        const color    = getNodeColor(node.value, colorCtx);
-        const cursor   = onNodeClick ? 'pointer' : 'default';
+        const color  = getNodeColor(node.value, colorCtx);
+        const cursor = onNodeClick ? 'pointer' : 'default';
         return (
           <g
             key={node.value}

@@ -31,10 +31,8 @@ export default function DegenerationDemo({ onGraded }) {
     setPlaying(true);
   }
 
-  // The student predicts the resulting shape BEFORE/while watching.
   function predict(choice) {
     if (prediction) return;
-    // Inserting sorted values always yields a degenerate (linked-list) shape.
     const correct = choice === 'degenerate';
     setPrediction({ choice, correct });
     onGraded?.(correct);
@@ -45,25 +43,25 @@ export default function DegenerationDemo({ onGraded }) {
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Atividade — Inserção em ordem crescente</h3>
-      <p style={{ color: '#8b949e', marginTop: 0 }}>
-        Vamos inserir a sequência <strong>1, 2, 3, 4, 5</strong> em ordem. Antes de tudo, preveja: que forma a árvore terá?
+      <h3 style={{ marginTop: 0, marginBottom: '4px' }}>Inserção em ordem crescente</h3>
+      <p style={{ color: '#6B7280', marginTop: 0, marginBottom: '16px', fontSize: '14px' }}>
+        Vamos inserir a sequência <strong>1, 2, 3, 4, 5</strong> em ordem. Preveja: que forma a árvore terá?
       </p>
 
       {!prediction && (
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '16px' }}>
-          <button onClick={() => predict('balanced')}   style={{ ...btn, background: '#0f3460' }}>Balanceada</button>
-          <button onClick={() => predict('degenerate')} style={{ ...btn, background: '#0f3460' }}>Degenerada (lista)</button>
+          <button onClick={() => predict('balanced')}   style={btn}>Balanceada</button>
+          <button onClick={() => predict('degenerate')} style={btn}>Degenerada (lista)</button>
         </div>
       )}
 
       {prediction && (
         <>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '12px' }}>
-            <button onClick={start} disabled={playing} style={{ ...btn, background: '#e94560' }}>
-              {playing ? 'Inserindo...' : '▶ Inserir 1 a 5'}
+            <button onClick={start} disabled={playing} style={{ ...btn, background: '#2D60FF' }}>
+              {playing ? 'Inserindo...' : 'Inserir 1 a 5'}
             </button>
-            <span style={{ color: '#8b949e' }}>Inseridos: {count}/{SEQUENCE.length}</span>
+            <span style={{ color: '#6B7280', fontSize: '13px' }}>Inseridos: {count}/{SEQUENCE.length}</span>
           </div>
 
           <TreeSVG root={root} highlightedNodes={count > 0 ? [SEQUENCE[count - 1]] : []} width={500} />
@@ -79,7 +77,7 @@ export default function DegenerationDemo({ onGraded }) {
 
           {finished && degenerateNow && (
             <div style={alert}>
-              ⚠ Degeneração detectada! Altura = número de nós. Este é o pior caso da ABB.
+              Degeneração detectada! Altura = número de nós. Este é o pior caso da ABB.
             </div>
           )}
         </>
@@ -88,6 +86,6 @@ export default function DegenerationDemo({ onGraded }) {
   );
 }
 
-const card  = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
-const btn   = { padding: '12px 20px', borderRadius: '6px', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold' };
-const alert = { marginTop: '12px', background: '#3d2817', border: '1px solid #e76f51', color: '#f4a261', padding: '12px', borderRadius: '6px', fontWeight: 'bold' };
+const card  = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const btn   = { padding: '10px 20px', borderRadius: '8px', border: 'none', background: '#6366F1', color: '#FFFFFF', cursor: 'pointer', fontSize: '14px', fontWeight: 600 };
+const alert = { marginTop: '12px', background: '#FFFBEB', border: '1px solid #FCD34D', color: '#92400E', padding: '12px', borderRadius: '8px', fontWeight: 600, fontSize: '14px' };

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { gradeTraversalOrder } from '../../utils/bst';
 import FeedbackBanner from '../../components/shared/FeedbackBanner';
+import TreeSVG from '../../components/TreeSVG';
 
 const LABELS = { inOrder: 'em ordem', preOrder: 'pré-ordem', postOrder: 'pós-ordem' };
 
@@ -36,12 +37,20 @@ export default function SequenceExercise({ root, type, values, onGraded }) {
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Atividade — Ordene o percurso {LABELS[type]}</h3>
-      <p style={{ color: '#8b949e', marginTop: 0 }}>
+      <h3 style={{ marginTop: 0, marginBottom: '4px' }}>Ordene o percurso {LABELS[type]}</h3>
+      <p style={{ color: '#6B7280', marginTop: 0, marginBottom: '16px', fontSize: '14px' }}>
         Arraste e solte os nós para formar a sequência correta do percurso <strong>{LABELS[type]}</strong>.
       </p>
 
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', margin: '16px 0', minHeight: '52px' }}>
+      <div style={{ background: '#F8FAFC', border: '1px solid #E5E7EB', borderRadius: '10px', padding: '16px', marginBottom: '20px', overflowX: 'auto' }}>
+        <TreeSVG root={root} width={560} />
+      </div>
+
+      <p style={{ color: '#374151', marginTop: 0, marginBottom: '8px', fontSize: '13px', fontWeight: 600 }}>
+        Sequência a ordenar:
+      </p>
+
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', margin: '0 0 16px', minHeight: '52px' }}>
         {order.map((v, i) => {
           const status = result
             ? result.mistakes.some((m) => m.index === i) ? 'wrong' : 'right'
@@ -56,8 +65,8 @@ export default function SequenceExercise({ root, type, values, onGraded }) {
               style={{
                 ...slot,
                 cursor: result ? 'default' : 'grab',
-                background: status === 'right' ? '#2d6a4f' : status === 'wrong' ? '#6b2737' : '#1d3557',
-                borderColor: dragIdx === i ? '#e94560' : '#457b9d',
+                background: status === 'right' ? '#ECFDF5' : status === 'wrong' ? '#FEF2F2' : '#FFFFFF',
+                borderColor: dragIdx === i ? '#2D60FF' : status === 'right' ? '#10B981' : status === 'wrong' ? '#EF4444' : '#E5E7EB',
               }}
             >
               {v}
@@ -84,10 +93,10 @@ export default function SequenceExercise({ root, type, values, onGraded }) {
   );
 }
 
-const card = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
-const btn  = { padding: '10px 20px', borderRadius: '6px', border: 'none', background: '#e94560', color: '#fff', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold' };
+const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const btn  = { padding: '10px 20px', borderRadius: '8px', border: 'none', background: '#2D60FF', color: '#FFFFFF', cursor: 'pointer', fontSize: '14px', fontWeight: 600 };
 const slot = {
   width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-  borderRadius: '8px', border: '2px solid #457b9d', color: '#e6edf3', fontFamily: 'monospace',
+  borderRadius: '8px', border: '2px solid #E5E7EB', color: '#1A1D29', fontFamily: 'monospace',
   fontWeight: 'bold', fontSize: '16px', userSelect: 'none',
 };

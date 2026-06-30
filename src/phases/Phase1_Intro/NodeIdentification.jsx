@@ -5,7 +5,6 @@ import FeedbackBanner from '../../components/shared/FeedbackBanner';
 
 const VALUES = [8, 4, 12, 2, 6, 10, 14];
 
-// Questions are answered automatically by inspecting the tree structure.
 const QUESTIONS = [
   { id: 'root', prompt: 'Clique na RAIZ da árvore.', test: (node, root) => node.value === root.value },
   { id: 'leaf', prompt: 'Clique em uma FOLHA (nó sem filhos).', test: (node) => !node.left && !node.right },
@@ -58,20 +57,20 @@ export default function NodeIdentification({ onComplete }) {
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Apresentação — Identifique as partes da árvore</h3>
+      <h3 style={{ marginTop: 0, marginBottom: '8px' }}>Identifique as partes da árvore</h3>
       {!finished ? (
-        <p style={{ color: '#e6edf3', fontSize: '16px' }}>
-          <strong style={{ color: '#f4a261' }}>Tarefa {qIdx + 1}/{QUESTIONS.length}:</strong> {question.prompt}
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '12px' }}>
+          <strong style={{ color: '#2D60FF' }}>Tarefa {qIdx + 1}/{QUESTIONS.length}:</strong> {question.prompt}
         </p>
       ) : (
-        <p style={{ color: '#52b788', fontWeight: 'bold' }}>
-          ✓ Identificação concluída — {correctCount}/{QUESTIONS.length} corretas na primeira tentativa.
+        <p style={{ color: '#10B981', fontWeight: 600, fontSize: '14px' }}>
+          Identificação concluída — {correctCount}/{QUESTIONS.length} corretas na primeira tentativa.
         </p>
       )}
 
       <TreeSVG root={root} highlightedNodes={highlighted} visitedNodes={correctNode} onNodeClick={handleClick} />
 
-      <p style={{ color: '#8b949e', fontSize: '13px', marginTop: '12px' }}>
+      <p style={{ color: '#9CA3AF', fontSize: '13px', marginTop: '12px' }}>
         Propriedade da ABB: para todo nó, <code>esquerda &lt; raiz &lt; direita</code>.
       </p>
 
@@ -80,4 +79,4 @@ export default function NodeIdentification({ onComplete }) {
   );
 }
 
-const card = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
+const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };

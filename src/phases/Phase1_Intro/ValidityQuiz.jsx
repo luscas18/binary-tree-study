@@ -3,17 +3,13 @@ import TreeSVG from '../../components/TreeSVG';
 import { makeNode, gradeValidity } from '../../utils/bst';
 import FeedbackBanner from '../../components/shared/FeedbackBanner';
 
-// Build trees by hand so we can include INVALID ones (insert() would only make valid trees).
 function tree(value, left, right) {
   return { ...makeNode(value), left: left ?? null, right: right ?? null };
 }
 
 const QUIZ = [
-  // valid
   tree(8, tree(4, tree(2), tree(6)), tree(12, tree(10), tree(14))),
-  // invalid: 9 is in the left subtree of 8 but is > 8
   tree(8, tree(4, tree(2), tree(9)), tree(12)),
-  // invalid: 7 on the right of 10 but 7 < 10
   tree(10, tree(5), tree(15, tree(7), tree(20))),
 ];
 
@@ -43,9 +39,9 @@ export default function ValidityQuiz({ onComplete }) {
   if (finished) {
     return (
       <section style={card}>
-        <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Atividade — Validar a propriedade da ABB</h3>
-        <p style={{ color: '#52b788', fontWeight: 'bold' }}>
-          ✓ Quiz concluído — {score}/{QUIZ.length} acertos.
+        <h3 style={{ marginTop: 0, marginBottom: '8px' }}>Validar a propriedade da ABB</h3>
+        <p style={{ color: '#10B981', fontWeight: 600, fontSize: '14px' }}>
+          Quiz concluído — {score}/{QUIZ.length} acertos.
         </p>
       </section>
     );
@@ -53,17 +49,17 @@ export default function ValidityQuiz({ onComplete }) {
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Atividade — Validar a propriedade da ABB</h3>
-      <p style={{ color: '#e6edf3' }}>
-        <strong style={{ color: '#f4a261' }}>Árvore {idx + 1}/{QUIZ.length}:</strong> esta árvore é uma ABB válida?
+      <h3 style={{ marginTop: 0, marginBottom: '8px' }}>Validar a propriedade da ABB</h3>
+      <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '12px' }}>
+        <strong style={{ color: '#2D60FF' }}>Árvore {idx + 1}/{QUIZ.length}:</strong> esta árvore é uma ABB válida?
       </p>
 
       <TreeSVG root={root} violatingNodes={result?.violatingNodes ?? []} />
 
       {!result ? (
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '16px' }}>
-          <button onClick={() => answer('valid')}   style={{ ...btn, background: '#2d6a4f' }}>✓ Válida</button>
-          <button onClick={() => answer('invalid')} style={{ ...btn, background: '#6b2737' }}>✗ Inválida</button>
+          <button onClick={() => answer('valid')}   style={{ ...btn, background: '#10B981' }}>Válida</button>
+          <button onClick={() => answer('invalid')} style={{ ...btn, background: '#EF4444' }}>Inválida</button>
         </div>
       ) : (
         <>
@@ -76,7 +72,7 @@ export default function ValidityQuiz({ onComplete }) {
             }
           />
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <button onClick={next} style={{ ...btn, background: '#0f3460' }}>Próxima →</button>
+            <button onClick={next} style={{ ...btn, background: '#2D60FF' }}>Próxima →</button>
           </div>
         </>
       )}
@@ -84,5 +80,5 @@ export default function ValidityQuiz({ onComplete }) {
   );
 }
 
-const card = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
-const btn  = { padding: '12px 24px', borderRadius: '6px', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '15px', fontWeight: 'bold' };
+const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const btn  = { padding: '10px 24px', borderRadius: '8px', border: 'none', color: '#FFFFFF', cursor: 'pointer', fontSize: '14px', fontWeight: 600 };

@@ -10,7 +10,7 @@ export default function BSTSimulator({ root, setRoot, onAnyAction }) {
   const [stepIdx, setStepIdx] = useState(0);
   const [running, setRunning] = useState(false);
   const [foundNode, setFoundNode] = useState(null);
-  const pending = useRef(null); // tree to commit after animation
+  const pending = useRef(null);
   const timer   = useRef(null);
 
   const activeNode = running && stepIdx > 0 ? steps[stepIdx - 1]?.nodeValue : null;
@@ -22,7 +22,6 @@ export default function BSTSimulator({ root, setRoot, onAnyAction }) {
     timer.current = setTimeout(() => {
       setStepIdx(stepIdx + 1);
       if (isLast) {
-        // animation finished: commit any pending tree change
         const last = steps[steps.length - 1];
         if (last?.action === 'found') setFoundNode(last.nodeValue);
         if (pending.current !== null) { setRoot(pending.current); pending.current = null; }
@@ -61,9 +60,9 @@ export default function BSTSimulator({ root, setRoot, onAnyAction }) {
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Simulador — Operações passo a passo</h3>
-      <p style={{ color: '#8b949e', marginTop: 0 }}>
-        Digite um valor e execute uma operação. Observe o caminho percorrido e o log das comparações.
+      <h3 style={{ marginTop: 0, marginBottom: '4px' }}>Simulador — Operações passo a passo</h3>
+      <p style={{ color: '#6B7280', marginTop: 0, marginBottom: '16px', fontSize: '14px' }}>
+        Digite um valor e execute uma operação. Observe o caminho percorrido.
       </p>
 
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
@@ -76,9 +75,9 @@ export default function BSTSimulator({ root, setRoot, onAnyAction }) {
           style={input}
           onKeyDown={(e) => e.key === 'Enter' && run('insert')}
         />
-        <button onClick={() => run('insert')} disabled={running} style={{ ...btn, background: '#0f3460' }}>Inserir</button>
-        <button onClick={() => run('search')} disabled={running} style={{ ...btn, background: '#1d3557' }}>Buscar</button>
-        <button onClick={() => run('remove')} disabled={running} style={{ ...btn, background: '#6b2737' }}>Remover</button>
+        <button onClick={() => run('insert')} disabled={running} style={{ ...btn, background: '#2D60FF' }}>Inserir</button>
+        <button onClick={() => run('search')} disabled={running} style={{ ...btn, background: '#6366F1' }}>Buscar</button>
+        <button onClick={() => run('remove')} disabled={running} style={{ ...btn, background: '#EF4444' }}>Remover</button>
       </div>
 
       <TreeSVG
@@ -91,7 +90,7 @@ export default function BSTSimulator({ root, setRoot, onAnyAction }) {
       {steps.length > 0 && (
         <div style={logBox}>
           {visibleLog.map((s, i) => (
-            <div key={i} style={{ color: '#a8dadc', fontFamily: 'monospace', fontSize: '13px', padding: '2px 0' }}>
+            <div key={i} style={{ color: '#374151', fontFamily: 'var(--mono, monospace)', fontSize: '13px', padding: '2px 0' }}>
               › {s.message}
             </div>
           ))}
@@ -101,7 +100,7 @@ export default function BSTSimulator({ root, setRoot, onAnyAction }) {
   );
 }
 
-const card  = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
-const btn   = { padding: '10px 16px', borderRadius: '6px', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold' };
-const input = { padding: '10px 12px', borderRadius: '6px', border: '1px solid #30363d', background: '#0d1117', color: '#e6edf3', width: '90px', fontSize: '14px' };
-const logBox = { marginTop: '16px', background: '#0d1117', border: '1px solid #30363d', borderRadius: '6px', padding: '12px', maxHeight: '160px', overflowY: 'auto' };
+const card   = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const btn    = { padding: '10px 16px', borderRadius: '8px', border: 'none', color: '#FFFFFF', cursor: 'pointer', fontSize: '14px', fontWeight: 600 };
+const input  = { padding: '10px 12px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#FAFBFC', color: '#1A1D29', width: '90px', fontSize: '14px' };
+const logBox = { marginTop: '16px', background: '#F8FAFC', border: '1px solid #E5E7EB', borderRadius: '8px', padding: '12px', maxHeight: '160px', overflowY: 'auto' };

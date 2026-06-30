@@ -1,6 +1,7 @@
 import { AppProvider } from './context/AppContext';
 import { useApp } from './context/appContextValue';
 import Navigation from './components/Navigation';
+import SelectionScreen from './components/SelectionScreen';
 import Phase1_Intro from './phases/Phase1_Intro';
 import Phase2_Algorithms from './phases/Phase2_Algorithms';
 import Phase3_Traversals from './phases/Phase3_Traversals';
@@ -14,18 +15,26 @@ const PHASE_COMPONENTS = {
   3: Phase3_Traversals,
   4: Phase4_Complexity,
   5: Phase5_Integration,
-  6: Results,
 };
 
 function AppContent() {
-  const { currentPhase } = useApp();
-  const PhaseComponent = PHASE_COMPONENTS[currentPhase] ?? Results;
+  const { currentStep } = useApp();
+
+  let content;
+  if (currentStep === 'select') {
+    content = <SelectionScreen />;
+  } else if (currentStep === 'results') {
+    content = <Results />;
+  } else {
+    const PhaseComponent = PHASE_COMPONENTS[currentStep];
+    content = PhaseComponent ? <PhaseComponent /> : <Results />;
+  }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0d1117', color: '#e6edf3', fontFamily: 'sans-serif' }}>
-      {currentPhase <= 5 && <Navigation />}
-      <main style={{ padding: '24px', maxWidth: '960px', margin: '0 auto' }}>
-        <PhaseComponent />
+    <div style={{ minHeight: '100vh', background: '#F0F5FF' }}>
+      {currentStep !== 'results' && <Navigation />}
+      <main style={{ padding: '24px 24px 48px', maxWidth: '880px', margin: '0 auto' }}>
+        {content}
       </main>
     </div>
   );
@@ -33,7 +42,7 @@ function AppContent() {
 
 export default function App() {
   return (
-    <AppProvider style={{background:'#0d1117'}}>
+    <AppProvider>
       <AppContent />
     </AppProvider>
   );
