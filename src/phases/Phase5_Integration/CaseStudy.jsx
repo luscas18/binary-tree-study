@@ -45,19 +45,19 @@ export default function CaseStudy({ onComplete }) {
   if (finished) {
     return (
       <section style={card}>
-        <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Estudo de caso</h3>
-        <p style={{ color: '#52b788', fontWeight: 'bold' }}>✓ Concluído — {score}/{SCENARIOS.length} análises completas.</p>
+        <h3 style={{ marginTop: 0, marginBottom: '8px' }}>Estudo de caso</h3>
+        <p style={{ color: '#10B981', fontWeight: 600, fontSize: '14px' }}>
+          Concluído — {score}/{SCENARIOS.length} análises corretas.
+        </p>
       </section>
     );
   }
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Estudo de caso {idx + 1}/{SCENARIOS.length} — {scenario.title}</h3>
-      <p style={{ color: '#c9d1d9', background: '#0d1117', padding: '12px', borderRadius: '6px', borderLeft: '3px solid #457b9d' }}>
-        {scenario.text}
-      </p>
-      <p style={{ color: '#e6edf3' }}>A ABB é a estrutura adequada para este cenário?</p>
+      <h3 style={{ marginTop: 0, marginBottom: '8px' }}>Estudo de caso {idx + 1}/{SCENARIOS.length} — {scenario.title}</h3>
+      <p style={scenarioBox}>{scenario.text}</p>
+      <p style={{ color: '#374151', fontSize: '14px', margin: '12px 0' }}>A ABB é a estrutura adequada para este cenário?</p>
 
       <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
         {['adequate', 'inadequate'].map((opt) => (
@@ -67,35 +67,33 @@ export default function CaseStudy({ onComplete }) {
             disabled={!!result}
             style={{
               ...btn,
-              background: choice === opt ? (opt === 'adequate' ? '#2d6a4f' : '#6b2737') : '#21262d',
-              outline: choice === opt ? '2px solid #fff' : 'none',
+              background: choice === opt ? (opt === 'adequate' ? '#10B981' : '#EF4444') : '#F3F4F6',
+              color: choice === opt ? '#FFFFFF' : '#374151',
+              border: choice === opt ? 'none' : '1px solid #E5E7EB',
             }}
           >
-            {opt === 'adequate' ? '✓ Adequada' : '✗ Inadequada'}
+            {opt === 'adequate' ? 'Adequada' : 'Inadequada'}
           </button>
         ))}
       </div>
 
       {!result ? (
-        <button onClick={submit} disabled={!choice} style={{ ...btn, background: '#e94560', marginTop: '12px', opacity: !choice ? 0.5 : 1 }}>
+        <button onClick={submit} disabled={!choice} style={{ ...btn, background: '#2D60FF', color: '#FFFFFF', marginTop: '8px', opacity: !choice ? 0.5 : 1 }}>
           Enviar análise
         </button>
       ) : (
         <>
           <FeedbackBanner
             type={result.correct ? 'correct' : 'incorrect'}
-            message={
-              result.correct
-                ? `Correto! ${scenario.rationale}`
-                : `Escolha incorreta. ${scenario.rationale}`
-            }
+            message={result.correct ? `Correto! ${scenario.rationale}` : `Escolha incorreta. ${scenario.rationale}`}
           />
-          <button onClick={next} style={{ ...btn, background: '#0f3460' }}>Próximo →</button>
+          <button onClick={next} style={{ ...btn, background: '#2D60FF', color: '#FFFFFF' }}>Próximo →</button>
         </>
       )}
     </section>
   );
 }
 
-const card     = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
-const btn      = { padding: '12px 20px', borderRadius: '6px', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold' };
+const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const btn  = { padding: '10px 20px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 600 };
+const scenarioBox = { color: '#374151', background: '#F8FAFC', padding: '12px 16px', borderRadius: '8px', borderLeft: '3px solid #2D60FF', fontSize: '14px', lineHeight: 1.6 };
