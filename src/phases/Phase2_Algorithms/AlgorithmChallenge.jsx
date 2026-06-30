@@ -9,8 +9,8 @@ export default function AlgorithmChallenge({ root, target, onGraded }) {
     [root, target]
   );
 
-  const [answers, setAnswers] = useState([]);   // chosen directions
-  const [wrongAt, setWrongAt] = useState(null);  // index of first wrong choice
+  const [answers, setAnswers] = useState([]);
+  const [wrongAt, setWrongAt] = useState(null);
   const [finished, setFinished] = useState(false);
 
   const idx = answers.length;
@@ -41,8 +41,8 @@ export default function AlgorithmChallenge({ root, target, onGraded }) {
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Desafio — Onde inserir {target}?</h3>
-      <p style={{ color: '#8b949e', marginTop: 0 }}>
+      <h3 style={{ marginTop: 0, marginBottom: '4px' }}>Desafio — Onde inserir {target}?</h3>
+      <p style={{ color: '#6B7280', marginTop: 0, marginBottom: '12px', fontSize: '14px' }}>
         A cada comparação, decida se o valor <strong>{target}</strong> deve ir para a esquerda ou para a direita.
         Passos dados: <strong>{answers.length}</strong>
       </p>
@@ -56,13 +56,13 @@ export default function AlgorithmChallenge({ root, target, onGraded }) {
 
       {!finished && currentStep && (
         <div style={{ textAlign: 'center', marginTop: '16px' }}>
-          <p style={{ color: '#e6edf3', fontSize: '16px' }}>
-            Comparando com o nó <strong style={{ color: '#f4a261' }}>{currentStep.nodeValue}</strong>:
+          <p style={{ color: '#374151', fontSize: '14px', marginBottom: '12px' }}>
+            Comparando com o nó <strong style={{ color: '#2D60FF' }}>{currentStep.nodeValue}</strong>:
             {' '}{target} vai para...?
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-            <button onClick={() => choose('left')}  style={{ ...btn, background: '#0f3460' }}>← Esquerda</button>
-            <button onClick={() => choose('right')} style={{ ...btn, background: '#0f3460' }}>Direita →</button>
+            <button onClick={() => choose('left')}  style={btn}>← Esquerda</button>
+            <button onClick={() => choose('right')} style={btn}>Direita →</button>
           </div>
         </div>
       )}
@@ -81,5 +81,5 @@ export default function AlgorithmChallenge({ root, target, onGraded }) {
   );
 }
 
-const card = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
-const btn  = { padding: '12px 24px', borderRadius: '6px', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '15px', fontWeight: 'bold' };
+const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const btn  = { padding: '10px 24px', borderRadius: '8px', border: 'none', background: '#2D60FF', color: '#FFFFFF', cursor: 'pointer', fontSize: '14px', fontWeight: 600 };

@@ -17,14 +17,14 @@ export default function FreeExploration({ onComplete }) {
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Exploração livre</h3>
-      <p style={{ color: '#8b949e', marginTop: 0 }}>
-        Modo livre: experimente suas próprias sequências de inserção, busca e remoção. Depois registre o que observou.
+      <h3 style={{ marginTop: 0, marginBottom: '4px' }}>Exploração livre</h3>
+      <p style={{ color: '#6B7280', marginTop: 0, marginBottom: '16px', fontSize: '14px' }}>
+        Modo livre: experimente suas próprias sequências de inserção, busca e remoção.
       </p>
 
       <BSTSimulator root={root} setRoot={setRoot} onAnyAction={() => setActionCount((c) => c + 1)} />
 
-      <div style={{ marginTop: '8px', color: '#8b949e', fontSize: '13px' }}>
+      <div style={{ marginTop: '8px', color: '#6B7280', fontSize: '13px' }}>
         Operações realizadas: {actionCount} (mín. 3)
       </div>
 
@@ -39,5 +39,5 @@ export default function FreeExploration({ onComplete }) {
   );
 }
 
-const card     = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
-const btn      = { padding: '12px 20px', borderRadius: '6px', border: 'none', background: '#2d6a4f', color: '#fff', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold' };
+const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const btn  = { padding: '10px 20px', borderRadius: '8px', border: 'none', background: '#10B981', color: '#FFFFFF', cursor: 'pointer', fontSize: '14px', fontWeight: 600 };

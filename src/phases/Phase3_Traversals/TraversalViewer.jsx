@@ -20,7 +20,6 @@ export default function TraversalViewer({ root }) {
   const visited  = steps.slice(0, stepIdx).map((s) => s.nodeValue);
   const current  = stepIdx > 0 && stepIdx <= steps.length ? steps[stepIdx - 1].nodeValue : null;
 
-  // drive the animation — state changes happen inside the timeout callback (async)
   useEffect(() => {
     if (!playing || stepIdx >= steps.length) return;
     const isLast = stepIdx + 1 >= steps.length;
@@ -43,8 +42,8 @@ export default function TraversalViewer({ root }) {
 
   return (
     <section style={card}>
-      <h3 style={{ marginTop: 0, color: '#e6edf3' }}>Apresentação — Visualizar percursos</h3>
-      <p style={{ color: '#8b949e', marginTop: 0 }}>
+      <h3 style={{ marginTop: 0, marginBottom: '4px' }}>Visualizar percursos</h3>
+      <p style={{ color: '#6B7280', marginTop: 0, marginBottom: '16px', fontSize: '14px' }}>
         Escolha um percurso e observe a ordem em que os nós são visitados.
       </p>
 
@@ -53,10 +52,10 @@ export default function TraversalViewer({ root }) {
           <button
             key={t.id}
             onClick={() => start(t.id)}
-            style={{ ...btn, background: type === t.id ? '#e94560' : '#0f3460' }}
+            style={{ ...btn, background: type === t.id ? '#2D60FF' : '#F3F4F6', color: type === t.id ? '#FFFFFF' : '#374151' }}
           >
             {t.label}
-            <span style={{ display: 'block', fontSize: '11px', opacity: 0.8 }}>{t.hint}</span>
+            <span style={{ display: 'block', fontSize: '11px', opacity: 0.7 }}>{t.hint}</span>
           </button>
         ))}
       </div>
@@ -69,7 +68,7 @@ export default function TraversalViewer({ root }) {
 
       {type && (
         <div style={{ marginTop: '16px' }}>
-          <strong style={{ color: '#8b949e' }}>Sequência gerada:</strong>
+          <strong style={{ color: '#6B7280', fontSize: '13px' }}>Sequência gerada:</strong>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '8px', minHeight: '34px' }}>
             {sequence.map((v, i) => (
               <span key={i} style={chip}>{v}</span>
@@ -78,12 +77,12 @@ export default function TraversalViewer({ root }) {
 
           {finished && (
             <div style={{ marginTop: '12px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <button onClick={() => start(type)} style={{ ...btn, background: '#16213e' }}>
-                ↻ Repetir
+              <button onClick={() => start(type)} style={{ ...btn, background: '#F3F4F6', color: '#374151' }}>
+                Repetir
               </button>
               {type === 'inOrder' && (
-                <span style={{ color: '#52b788', fontWeight: 'bold' }}>
-                  ✓ O percurso em ordem produz a sequência em ordem crescente!
+                <span style={{ color: '#10B981', fontWeight: 600, fontSize: '14px' }}>
+                  O percurso em ordem produz a sequência em ordem crescente!
                 </span>
               )}
             </div>
@@ -94,6 +93,6 @@ export default function TraversalViewer({ root }) {
   );
 }
 
-const card = { background: '#161b22', border: '1px solid #30363d', borderRadius: '10px', padding: '20px', marginBottom: '24px' };
-const btn  = { padding: '10px 16px', borderRadius: '6px', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '14px' };
-const chip = { background: '#1d3557', color: '#e6edf3', padding: '6px 12px', borderRadius: '6px', fontFamily: 'monospace', fontWeight: 'bold' };
+const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const btn  = { padding: '10px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', cursor: 'pointer', fontSize: '13px', fontWeight: 500 };
+const chip = { background: '#EBF0FF', color: '#2D60FF', padding: '6px 12px', borderRadius: '6px', fontFamily: 'monospace', fontWeight: 600, fontSize: '13px' };

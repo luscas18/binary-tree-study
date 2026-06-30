@@ -1,9 +1,9 @@
-// Fase 4: Complexidade — Caso médio, pior caso e degeneração (RA04, RA09)
 import { useState } from 'react';
 import { useApp } from '../../context/appContextValue';
 import ComplexityComparison from './ComplexityComparison';
 import DegenerationDemo from './DegenerationDemo';
 import PhaseFooter from '../../components/shared/PhaseFooter';
+import { phaseContent } from '../../data/phaseContent';
 
 export default function Phase4_Complexity() {
   const { recordResult } = useApp();
@@ -22,12 +22,16 @@ export default function Phase4_Complexity() {
 
   return (
     <div>
-      <header style={{ marginBottom: '20px' }}>
-        <h2 style={{ color: '#e6edf3', marginBottom: '4px' }}>Fase 4 — Complexidade</h2>
-        <p style={{ color: '#8b949e', marginTop: 0 }}>
-          Caso médio, pior caso e degeneração · Requisitos RA04 e RA09
-        </p>
+      <header style={header}>
+        <span style={badge}>Fase 4</span>
+        <h2>Complexidade — Caso Médio, Pior Caso e Degeneração</h2>
+        <p>Requisitos RA04 e RA09</p>
       </header>
+
+      <section style={card}>
+        <h3 style={{ marginBottom: '12px' }}>{phaseContent[4].title}</h3>
+        <div style={contentBody}>{phaseContent[4].content}</div>
+      </section>
 
       <ComplexityComparison onGraded={gradeA} />
       <DegenerationDemo onGraded={gradeB} />
@@ -36,3 +40,8 @@ export default function Phase4_Complexity() {
     </div>
   );
 }
+
+const header = { marginBottom: '20px' };
+const badge = { display: 'inline-block', padding: '4px 12px', borderRadius: '20px', background: '#EBF0FF', color: '#2D60FF', fontSize: '12px', fontWeight: 600, marginBottom: '8px' };
+const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
+const contentBody = { color: '#374151', lineHeight: 1.7, fontSize: '14px' };
