@@ -17,6 +17,10 @@ export function AppProvider({ children }) {
     setFlowIndex((i) => i + 1);
   }, []);
 
+  const goBack = useCallback(() => {
+    setFlowIndex((i) => Math.max(0, i - 1));
+  }, []);
+
   const selectPhase = useCallback((chosen) => {
     const other = chosen === 4 ? 5 : 4;
     setFlow((prev) => [...prev, chosen, other, 'results']);
@@ -45,6 +49,7 @@ export function AppProvider({ children }) {
         phaseResults,
         score,
         advancePhase,
+        goBack,
         selectPhase,
         recordResult,
         restart,

@@ -18,23 +18,25 @@ const PHASE_COMPONENTS = {
 };
 
 function AppContent() {
-  const { currentStep } = useApp();
+  const { currentStep, flow, flowIndex } = useApp();
 
-  let content;
-  if (currentStep === 'select') {
-    content = <SelectionScreen />;
-  } else if (currentStep === 'results') {
-    content = <Results />;
-  } else {
-    const PhaseComponent = PHASE_COMPONENTS[currentStep];
-    content = PhaseComponent ? <PhaseComponent /> : <Results />;
-  }
+  // All numbered phases visited so far — kept mounted to preserve their state
+  const visitedPhases = flow.slice(0, flowIndex + 1).filter((s) => typeof s === 'number');
 
   return (
     <div style={{ minHeight: '100vh', background: '#F0F5FF' }}>
       {currentStep !== 'results' && <Navigation />}
       <main style={{ padding: '24px 24px 48px', maxWidth: '880px', margin: '0 auto' }}>
-        {content}
+        {visitedPhases.map((step) => {
+          const PhaseComponent = PHASE_COMPONENTS[step];
+          return (
+            <div key={step} style={{ display: step === currentStep ? 'block' : 'none' }}>
+              <PhaseComponent />
+            </div>
+          );
+        })}
+        {currentStep === 'select'   && <SelectionScreen />}
+        {currentStep === 'results'  && <Results />}
       </main>
     </div>
   );
