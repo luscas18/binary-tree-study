@@ -2,6 +2,9 @@
 
 **Universidade Tecnológica Federal do Paraná — UTFPR Campo Mourão**
 Disciplina: OPT016 | Bacharelado em Ciências da Computação
+
+**🔗 Acesso ao Objeto de Aprendizagem: [https://binary-tree-study.vercel.app/](https://binary-tree-study.vercel.app/)**
+
 ---
 
 ## Público-Alvo
@@ -42,6 +45,8 @@ Os requisitos estão organizados em três dimensões — Conceitos, Habilidades 
 ![Modelo Instrucional](public/instrucional.png)
 
 Arquivo fonte editável: [Abrir no Excalidraw](https://excalidraw.com/#json=p0oAGkzMRSp67fe93bXUa,MsMh4r5aLD5sS0n0dmSDNg)
+
+**🔗 Acesso ao Objeto de Aprendizagem: [https://binary-tree-study.vercel.app/](https://binary-tree-study.vercel.app/)**
 
 ---
 
