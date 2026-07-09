@@ -7,9 +7,14 @@ import PhaseStepper from '../../components/shared/PhaseStepper';
 import { phaseContent } from '../../data/phaseContent';
 import { t } from '../../data/translations';
 
+// Sequência fixa do módulo: sempre começa em THEORY. Identificação e Quiz
+// são práticas opcionais — não bloqueiam o avanço de sub-passo.
+const STEP = { THEORY: 0, IDENTIFICATION: 1, QUIZ: 2 };
+const LAST_STEP = STEP.QUIZ;
+
 export default function Phase1_Intro() {
   const { recordResult } = useApp();
-  const [subStep, setSubStep] = useState(0);
+  const [subStep, setSubStep] = useState(STEP.THEORY);
   const [idDone, setIdDone] = useState(null);
   const [quizDone, setQuizDone] = useState(null);
 
@@ -27,22 +32,24 @@ export default function Phase1_Intro() {
     }
   }
 
-  const steps = [t('theory'), 'Identificação', 'Quiz'];
+  const steps = [t('theory'), 'Identificação (opcional)', 'Quiz'];
 
-  const footerEnabled = 
-    subStep === 0 || 
-    (subStep === 1 && idDone !== null) || 
-    (subStep === 2 && quizDone !== null);
+  // Teoria é livre e a Identificação é ambientação opcional. O Quiz é a
+  // avaliação da fase e continua obrigatório para concluir.
+  const footerEnabled =
+    subStep === STEP.THEORY ||
+    subStep === STEP.IDENTIFICATION ||
+    (subStep === STEP.QUIZ && quizDone !== null);
 
-  const footerLabel = subStep < 2 ? t('next') : t('finishPhase');
+  const footerLabel = subStep < LAST_STEP ? t('next') : t('finishPhase');
 
   const handleNext = () => {
-    if (subStep < 2) {
+    if (subStep < LAST_STEP) {
       setSubStep(subStep + 1);
     }
   };
 
-  const handleBack = subStep > 0 ? () => setSubStep(subStep - 1) : undefined;
+  const handleBack = subStep > STEP.THEORY ? () => setSubStep(subStep - 1) : undefined;
 
   return (
     <div>
@@ -54,25 +61,25 @@ export default function Phase1_Intro() {
 
       <PhaseStepper activeStep={subStep} steps={steps} />
 
-      {subStep === 0 && (
+      {subStep === STEP.THEORY && (
         <section style={card}>
           <h3 style={{ marginBottom: '12px', color: 'var(--text)' }}>{phaseContent[1].title}</h3>
           <div style={contentBody}>{phaseContent[1].content}</div>
         </section>
       )}
 
-      {subStep === 1 && (
+      {subStep === STEP.IDENTIFICATION && (
         <NodeIdentification onComplete={finishIdentification} />
       )}
 
-      {subStep === 2 && (
+      {subStep === STEP.QUIZ && (
         <ValidityQuiz onComplete={finishQuiz} />
       )}
 
-      <PhaseFooter 
-        enabled={footerEnabled} 
+      <PhaseFooter
+        enabled={footerEnabled}
         label={footerLabel}
-        onNext={subStep < 2 ? handleNext : undefined}
+        onNext={subStep < LAST_STEP ? handleNext : undefined}
         onBack={handleBack}
       />
     </div>
