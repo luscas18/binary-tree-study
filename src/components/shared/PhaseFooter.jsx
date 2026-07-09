@@ -1,30 +1,32 @@
 import { useApp } from '../../context/appContextValue';
 
-export default function PhaseFooter({ enabled, label = 'Avançar →' }) {
+export default function PhaseFooter({ enabled, label = 'Avançar →', onNext, onBack }) {
   const { advancePhase, goBack, flowIndex } = useApp();
-  const canGoBack = flowIndex > 0;
+  const showBack = flowIndex > 0 || !!onBack;
+
+  const handleBack = onBack || goBack;
+  const handleNext = onNext || advancePhase;
 
   return (
-    <div style={{ display: 'flex', justifyContent: canGoBack ? 'space-between' : 'flex-end', marginTop: '24px' }}>
-      {canGoBack && (
-        <button onClick={goBack} style={backBtn}>
+    <div style={{ display: 'flex', justifyContent: showBack ? 'space-between' : 'flex-end', marginTop: '24px' }}>
+      {showBack && (
+        <button onClick={handleBack} style={backBtn}>
           ← Voltar
         </button>
       )}
       <button
-        onClick={advancePhase}
+        onClick={handleNext}
         disabled={!enabled}
         style={{
           padding: '12px 28px',
           borderRadius: '8px',
           border: 'none',
-          background: enabled ? '#2D60FF' : '#E5E7EB',
-          color: enabled ? '#FFFFFF' : '#9CA3AF',
+          background: enabled ? 'var(--primary)' : 'var(--border)',
+          color: enabled ? '#FFFFFF' : 'var(--text-secondary)',
           cursor: enabled ? 'pointer' : 'not-allowed',
           fontSize: '15px',
           fontWeight: 600,
           transition: 'all 0.2s',
-          boxShadow: enabled ? '0 2px 8px rgba(45,96,255,0.25)' : 'none',
         }}
       >
         {label}
@@ -36,11 +38,12 @@ export default function PhaseFooter({ enabled, label = 'Avançar →' }) {
 const backBtn = {
   padding: '12px 28px',
   borderRadius: '8px',
-  border: '1px solid #E5E7EB',
-  background: '#FFFFFF',
-  color: '#6B7280',
+  border: '1px solid var(--border)',
+  background: 'var(--card)',
+  color: 'var(--text-secondary)',
   cursor: 'pointer',
   fontSize: '15px',
   fontWeight: 600,
   transition: 'all 0.2s',
 };
+
