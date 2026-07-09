@@ -22,8 +22,11 @@ export function AppProvider({ children }) {
   }, []);
 
   const selectPhase = useCallback((chosen) => {
-    const other = chosen === 4 ? 5 : 4;
-    setFlow((prev) => [...prev, chosen, other, 'results']);
+    setFlow((prev) => {
+      const selectIdx = prev.indexOf('select');
+      const baseFlow = selectIdx !== -1 ? prev.slice(0, selectIdx + 1) : [1, 2, 3, 'select'];
+      return [...baseFlow, chosen, 'results'];
+    });
     setFlowIndex((i) => i + 1);
   }, []);
 

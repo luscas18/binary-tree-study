@@ -3,10 +3,13 @@ import { useApp } from '../../context/appContextValue';
 import NodeIdentification from './NodeIdentification';
 import ValidityQuiz from './ValidityQuiz';
 import PhaseFooter from '../../components/shared/PhaseFooter';
+import PhaseStepper from '../../components/shared/PhaseStepper';
 import { phaseContent } from '../../data/phaseContent';
+import { t } from '../../data/translations';
 
 export default function Phase1_Intro() {
   const { recordResult } = useApp();
+  const [subStep, setSubStep] = useState(0);
   const [idDone, setIdDone] = useState(null);
   const [quizDone, setQuizDone] = useState(null);
 
@@ -24,30 +27,59 @@ export default function Phase1_Intro() {
     }
   }
 
-  const done = idDone && quizDone;
+  const steps = [t('theory'), 'Identificação', 'Quiz'];
+
+  const footerEnabled = 
+    subStep === 0 || 
+    (subStep === 1 && idDone !== null) || 
+    (subStep === 2 && quizDone !== null);
+
+  const footerLabel = subStep < 2 ? t('next') : t('finishPhase');
+
+  const handleNext = () => {
+    if (subStep < 2) {
+      setSubStep(subStep + 1);
+    }
+  };
+
+  const handleBack = subStep > 0 ? () => setSubStep(subStep - 1) : undefined;
 
   return (
     <div>
       <header style={header}>
         <span style={badge}>Fase 1</span>
-        <h2>Introdução — Estrutura da ABB</h2>
-        <p>Requisitos RA01 e RA02</p>
+        <h2 style={{ color: 'var(--text)' }}>Introdução — Estrutura da ABB</h2>
+        <p style={{ color: 'var(--text-secondary)' }}>Requisitos RA01 e RA02</p>
       </header>
 
-      <section style={card}>
-        <h3 style={{ marginBottom: '12px' }}>{phaseContent[1].title}</h3>
-        <div style={contentBody}>{phaseContent[1].content}</div>
-      </section>
+      <PhaseStepper activeStep={subStep} steps={steps} />
 
-      <NodeIdentification onComplete={finishIdentification} />
-      <ValidityQuiz onComplete={finishQuiz} />
+      {subStep === 0 && (
+        <section style={card}>
+          <h3 style={{ marginBottom: '12px', color: 'var(--text)' }}>{phaseContent[1].title}</h3>
+          <div style={contentBody}>{phaseContent[1].content}</div>
+        </section>
+      )}
 
-      <PhaseFooter enabled={!!done} />
+      {subStep === 1 && (
+        <NodeIdentification onComplete={finishIdentification} />
+      )}
+
+      {subStep === 2 && (
+        <ValidityQuiz onComplete={finishQuiz} />
+      )}
+
+      <PhaseFooter 
+        enabled={footerEnabled} 
+        label={footerLabel}
+        onNext={subStep < 2 ? handleNext : undefined}
+        onBack={handleBack}
+      />
     </div>
   );
 }
 
 const header = { marginBottom: '20px' };
-const badge = { display: 'inline-block', padding: '4px 12px', borderRadius: '20px', background: '#EBF0FF', color: '#2D60FF', fontSize: '12px', fontWeight: 600, marginBottom: '8px' };
-const card = { background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '24px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
-const contentBody = { color: '#374151', lineHeight: 1.7, fontSize: '14px' };
+const badge = { display: 'inline-block', padding: '4px 12px', borderRadius: '20px', background: 'var(--primary-light)', color: 'var(--primary)', fontSize: '12px', fontWeight: 600, marginBottom: '8px' };
+const card = { background: 'var(--card)', borderRadius: '12px', padding: '24px', marginBottom: '20px', border: 'none', boxShadow: 'none' };
+const contentBody = { color: 'var(--text)', lineHeight: 1.7, fontSize: '14px' };

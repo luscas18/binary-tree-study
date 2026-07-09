@@ -5,8 +5,7 @@ const STEPS = [
   { id: 2, label: 'Algoritmos' },
   { id: 3, label: 'Percursos' },
   { id: 'select', label: 'Escolha' },
-  { id: '4/5', label: 'Fase 4' },
-  { id: '5/4', label: 'Fase 5' },
+  { id: 'advanced', label: 'Fase Avançada' },
 ];
 
 export default function Navigation() {
@@ -23,16 +22,11 @@ export default function Navigation() {
     } else if (step.id === 'select') {
       active = currentStep === 'select';
       done = flow.indexOf('select') < flowIndex;
-    } else if (step.id === '4/5') {
+    } else if (step.id === 'advanced') {
       const phase = flow[4];
-      active = typeof currentStep === 'number' && currentStep === phase;
-      done = phase !== undefined && flowIndex > 4;
-      return { ...step, label: phase ? `Fase ${phase}` : 'Fase ?', active, done };
-    } else if (step.id === '5/4') {
-      const phase = flow[5];
-      active = typeof currentStep === 'number' && currentStep === phase;
-      done = phase !== undefined && flowIndex > 5;
-      return { ...step, label: phase ? `Fase ${phase}` : 'Fase ?', active, done };
+      active = typeof currentStep === 'number' && (currentStep === 4 || currentStep === 5);
+      done = flowIndex > 4;
+      return { ...step, label: phase ? `Fase ${phase}` : 'Fase Avançada', active, done };
     }
 
     return { ...step, active, done };
@@ -47,7 +41,7 @@ export default function Navigation() {
             <div key={step.id} style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
               {i > 0 && <div style={connector(step.done)} />}
               <div style={pill(step.active, step.done)}>
-                {step.done ? '✓' : ''} {step.label}
+                {step.done ? '✓ ' : ''}{step.label}
               </div>
             </div>
           ))}
@@ -58,8 +52,8 @@ export default function Navigation() {
 }
 
 const nav = {
-  background: '#FFFFFF',
-  borderBottom: '1px solid #E5E7EB',
+  background: 'var(--card)',
+  borderBottom: '1px solid var(--border)',
   padding: '0 24px',
   position: 'sticky',
   top: 0,
@@ -78,7 +72,7 @@ const inner = {
 const logo = {
   fontWeight: 700,
   fontSize: '16px',
-  color: '#2D60FF',
+  color: 'var(--primary)',
   whiteSpace: 'nowrap',
   flexShrink: 0,
 };
@@ -94,7 +88,7 @@ const steps = {
 const connector = (done) => ({
   width: '20px',
   height: '2px',
-  background: done ? '#2D60FF' : '#E5E7EB',
+  background: done ? 'var(--primary)' : 'var(--border)',
   flexShrink: 0,
 });
 
@@ -104,7 +98,7 @@ const pill = (active, done) => ({
   fontSize: '12px',
   fontWeight: active ? 600 : 500,
   whiteSpace: 'nowrap',
-  background: active ? '#2D60FF' : done ? '#EBF0FF' : '#F3F4F6',
-  color: active ? '#FFFFFF' : done ? '#2D60FF' : '#6B7280',
+  background: active ? 'var(--primary)' : done ? 'var(--primary-light)' : 'var(--bg)',
+  color: active ? '#FFFFFF' : done ? 'var(--primary)' : 'var(--text-secondary)',
   transition: 'all 0.2s',
 });
