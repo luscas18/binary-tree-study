@@ -21,6 +21,11 @@ export function AppProvider({ children }) {
     setFlowIndex((i) => Math.max(0, i - 1));
   }, []);
 
+  // Jump back to an already-visited step in the flow (used by the top nav). Never skips ahead.
+  const goToFlowIndex = useCallback((idx) => {
+    setFlowIndex((current) => (idx >= 0 && idx <= current ? idx : current));
+  }, []);
+
   const selectPhase = useCallback((chosen) => {
     setFlow((prev) => {
       const selectIdx = prev.indexOf('select');
@@ -53,6 +58,7 @@ export function AppProvider({ children }) {
         score,
         advancePhase,
         goBack,
+        goToFlowIndex,
         selectPhase,
         recordResult,
         restart,
