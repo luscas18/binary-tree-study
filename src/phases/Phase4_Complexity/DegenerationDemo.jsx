@@ -1,34 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import TreeSVG from '../../components/TreeSVG';
+import PlaybackControls from '../../components/shared/PlaybackControls';
+import { usePlayback } from '../../hooks/usePlayback';
 import { insert, isDegenerate } from '../../utils/bst';
 import FeedbackBanner from '../../components/shared/FeedbackBanner';
 
 const SEQUENCE = [1, 2, 3, 4, 5];
-const STEP_MS = 750;
 
 export default function DegenerationDemo({ onGraded }) {
-  const [root, setRoot]   = useState(null);
-  const [count, setCount] = useState(0);
-  const [playing, setPlaying] = useState(false);
   const [prediction, setPrediction] = useState(null);
-  const timer = useRef(null);
+  const { stepIdx: count, playing, speed, setSpeed, play, pause, stepForward, stepBack, reset } =
+    usePlayback(SEQUENCE.length);
 
-  useEffect(() => {
-    if (!playing || count >= SEQUENCE.length) return;
-    const isLast = count + 1 >= SEQUENCE.length;
-    timer.current = setTimeout(() => {
-      setRoot((r) => insert(r, SEQUENCE[count]));
-      setCount(count + 1);
-      if (isLast) setPlaying(false);
-    }, STEP_MS);
-    return () => clearTimeout(timer.current);
-  }, [playing, count]);
+  const root = SEQUENCE.slice(0, count).reduce((r, v) => insert(r, v), null);
 
   function start() {
-    clearTimeout(timer.current);
-    setRoot(null);
-    setCount(0);
-    setPlaying(true);
+    reset();
+    play();
   }
 
   function predict(choice) {
@@ -65,6 +53,18 @@ export default function DegenerationDemo({ onGraded }) {
           </div>
 
           <TreeSVG root={root} highlightedNodes={count > 0 ? [SEQUENCE[count - 1]] : []} width={500} />
+
+          <PlaybackControls
+            stepIdx={count}
+            total={SEQUENCE.length}
+            playing={playing}
+            speed={speed}
+            setSpeed={setSpeed}
+            play={play}
+            pause={pause}
+            stepForward={stepForward}
+            stepBack={stepBack}
+          />
 
           <FeedbackBanner
             type={prediction.correct ? 'correct' : 'incorrect'}
