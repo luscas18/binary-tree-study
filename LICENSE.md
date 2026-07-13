@@ -9,7 +9,7 @@ Este Objeto de Aprendizagem está sob uma licença dupla para abranger tanto o c
 
 ## 1. Código-Fonte (Licença MIT)
 
-Copyright (c) 2026 Lucas Dos Santos Vaz
+Copyright (c) 2026 Lucas Dos Santos Vaz e Walancy Heleonai Ferreira dos Santos
 
 A permissão é concedida, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software e dos arquivos de documentação associados (o "Software"), para lidar com o Software sem restrições, incluindo, sem limitação, os direitos de usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e/ou vender cópias do Software, e permitir que as pessoas a quem o Software é fornecido o façam, sujeitas às seguintes condições:
 
