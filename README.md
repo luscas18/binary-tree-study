@@ -67,3 +67,14 @@ Este repositório contém o desenvolvimento do objeto de aprendizagem interativo
 npm install
 npm run dev
 ```
+
+---
+
+## Licença
+
+Este projeto está sob licença dupla:
+* **Código-Fonte:** Licenciado sob a [Licença MIT](LICENSE.md#1-código-fonte-licença-mit).
+* **Conteúdo Educacional e Mídias:** Licenciado sob a licença [Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional (CC BY-SA 4.0)](LICENSE.md#2-conteúdo-educacional-e-mídia-cc-by-sa-4.0).
+
+Para mais detalhes, consulte o arquivo [LICENSE.md](LICENSE.md).
+
